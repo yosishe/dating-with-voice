@@ -73,7 +73,7 @@
       visit(root);
     }
     if(root===screen)visit($('nav'));
-    if(root===screen&&page==='discover'&&root.querySelector('.paged-deck')){
+    if(root===screen&&page==='discover'&&stage===0&&root.querySelector('.paged-deck')){
       const target=root.querySelector('.profile-title');
       result.splice(1,0,{el:target,text:'החץ השמאלי מספר עוד על אותו אדם. כדי לראות אדם אחר, בוחרים לדלג לאדם הבא.'});
     }

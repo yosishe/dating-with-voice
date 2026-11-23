@@ -17,6 +17,9 @@
     target.value=value;target.dispatchEvent(new Event('input',{bubbles:true}));
     dialog.close();target.focus();target.setSelectionRange(value.length,value.length);
   }
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden&&dialog.open){closeMic();dialog.close()}
+  });
   function show(status=''){
     dialog.innerHTML='<h2 id="voice-draft-title">להכתיב טיוטה</h2><p>אפשר לומר משפט. המילים יופיעו בשדה ואפשר יהיה לתקן אותן.</p>'+
       (status?'<p role="status">'+esc(status)+'</p>':'')+

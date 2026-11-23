@@ -28,7 +28,7 @@ With Python Playwright and its Chromium and WebKit browsers installed:
 python tests/voice_journey.py http://localhost:8000
 ```
 
-Set `CHROME_CHANNEL` or `WEBKIT_EXECUTABLE` when using a system browser. The test exercises narration, profile choices, sample dictation, edit/confirm, and real Hebrew audio generation on arbitrary draft text. An actual microphone and residents' usability have to be tested on representative devices.
+Set `CHROME_CHANNEL` or `WEBKIT_EXECUTABLE` when using a system browser. The test exercises narration, profile choices, sample dictation, edit/confirm, and real Hebrew audio generation on arbitrary draft text. Run `python tests/dictation.py http://localhost:8000` to check recognition callbacks, cancellation, assisted-chat preview and delivery to the other resident using a simulated device recognition API. Actual microphone quality and usability still require representative devices and residents.
 
 ## Bundled dependency
 
