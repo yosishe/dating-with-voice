@@ -10,7 +10,7 @@ with sync_playwright() as w:
   static async available(opts){return opts.processLocally&&opts.langs[0]==='he-IL'?'available':'unavailable'}
   start(){window.testMic=this}stop(){this.onend?.()}abort(){this.onend?.()}
  };window.SpeechRecognition=TestRecognition""")
- p.goto(base+'/app.html#yael-chat')
+ p.goto(base+'/app.html#yael-chat',wait_until='domcontentloaded',timeout=90000)
  form=p.locator('#roundForm');form.wait_for()
  before=p.evaluate('chat().msg.length')
  form.locator('[data-act=dictate]').click();p.locator('[data-mic=record]').click()

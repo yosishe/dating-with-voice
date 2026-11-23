@@ -10,7 +10,7 @@ with sync_playwright() as w:
    browser=w.webkit.launch(executable_path=os.getenv('WEBKIT_EXECUTABLE') or None)
   p=browser.new_page(viewport={'width':390,'height':844});p.set_default_timeout(60000)
   errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
-  p.goto(base+'/');ui=p.frame_locator('iframe');ui.locator('[data-act=voiceEverywhere]').wait_for()
+  p.goto(base+'/',wait_until='domcontentloaded',timeout=90000);ui=p.frame_locator('iframe');ui.locator('[data-act=voiceEverywhere]').wait_for()
   f=p.frames[1]
   f.evaluate("if(window.speechSynthesis)Object.defineProperty(Object.getPrototypeOf(speechSynthesis),'getVoices',{configurable:true,value:()=>[]});true")
   # Observe decoded audio without substituting fake speech or audio files.

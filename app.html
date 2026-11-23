@@ -594,7 +594,7 @@ body[data-clean] #rail,body[data-clean] [data-act="staffTab"][data-v="decisions"
 </nav><button class="quiet map-nav" data-act="journey" aria-label="מפת המסע"><span class="map-full">מפת המסע</span><span class="map-short">מפה</span></button><button class="demo-toggle" data-act="demo" aria-label="כלי הדגמה"><span class="dot"></span><span class="demo-full">כלי הדגמה</span><span class="demo-short">הדגמה</span></button></div></div></header>
 <div id="shell"><aside id="rail" aria-label="ניווט בהדגמה"></aside><main id="device" aria-label="האפליקציה"><div id="status"></div><div id="screen" tabindex="-1"></div><nav id="nav" aria-label="ניווט ראשי"></nav></main></div>
 <dialog id="dialog"><div id="dialogbody"></div></dialog><dialog id="researchDialog" aria-labelledby="reviewTitle"><div id="researchBody"></div></dialog><div id="toast" role="status" aria-live="polite"></div>
-<script src="voice-engine.js"></script><script src="audioClips-fc76460235.js"></script>
+<script src="voice-engine.js?v=2"></script>
 <script src="pictures-0b4a83f6c1.js"></script>
 <script src="resident-photos-v1.js"></script>
 <script>'use strict';
@@ -3422,4 +3422,10 @@ function openEntry(){const station=location.hash.slice(1);
 window.addEventListener('hashchange',openEntry);
 openEntry();
 
-</script><script src="phone-photo.js?v=47"></script><script src="paged-profile.js?v=visual1"></script><script src="resident-learning.js?v=51"></script><script src="reader-audio.js"></script><script src="voice-draft.js"></script><script src="reader.js"></script></body></html>
+</script><script src="phone-photo.js?v=47"></script><script src="paged-profile.js?v=visual1"></script><script src="resident-learning.js?v=51"></script><script src="voice-draft.js"></script><script src="reader.js"></script><script>
+requestAnimationFrame(()=>setTimeout(()=>{
+  for(const file of ['audioClips-fc76460235.js?v=voice2','reader-audio.js']){
+    const bundle=document.createElement('script');bundle.src=file;document.head.append(bundle);
+  }
+},0));
+</script></body></html>
