@@ -32,9 +32,10 @@ Set `CHROME_CHANNEL` or `WEBKIT_EXECUTABLE` when using a system browser. The tes
 
 ## Bundled dependency
 
-The files under `vendor/espeak-ng/` are the unmodified distribution and license from [espeak-ng 1.0.2](https://www.npmjs.com/package/espeak-ng/v/1.0.2), GPL-3.0-or-later. [Distribution source and build instructions](https://github.com/ianmarmour/espeak-ng.js/tree/eec88dbcc1482b1a03a76cf9d2025a0acde8982e). The dependency is pinned in `package-lock.json`. To reproduce the vendor directory:
+The JS, WASM, and license under `vendor/espeak-ng/` are the unmodified distribution and license from [espeak-ng 1.0.2](https://www.npmjs.com/package/espeak-ng/v/1.0.2), GPL-3.0-or-later. [Distribution source and build instructions](https://github.com/ianmarmour/espeak-ng.js/tree/eec88dbcc1482b1a03a76cf9d2025a0acde8982e). The dependency is pinned in `package-lock.json`. To reproduce the vendor directory:
 
 ```sh
 npm ci --ignore-scripts
 cp node_modules/espeak-ng/dist/* node_modules/espeak-ng/LICENSE vendor/espeak-ng/
+gzip -cn -6 vendor/espeak-ng/espeak-ng.wasm > vendor/espeak-ng/espeak-ng.wasm.gz
 ```

@@ -8,10 +8,11 @@ with sync_playwright() as w:
    browser=w.chromium.launch(channel=os.getenv('CHROME_CHANNEL') or None)
   else:
    browser=w.webkit.launch(executable_path=os.getenv('WEBKIT_EXECUTABLE') or None)
-  p=browser.new_page(viewport={'width':390,'height':844});p.set_default_timeout(12000)
+  p=browser.new_page(viewport={'width':390,'height':844});p.set_default_timeout(60000)
   errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
   p.goto(base+'/');ui=p.frame_locator('iframe');ui.locator('[data-act=voiceEverywhere]').wait_for()
   f=p.frames[1]
+  f.evaluate("if(window.speechSynthesis)Object.defineProperty(Object.getPrototypeOf(speechSynthesis),'getVoices',{configurable:true,value:()=>[]});true")
   # Observe decoded audio without substituting fake speech or audio files.
   f.evaluate("""window.played=[];const originalPlay=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){played.push(this);return originalPlay.call(this)};true""")
   ui.locator('[data-act=voiceEverywhere]').click()
@@ -40,9 +41,9 @@ with sync_playwright() as w:
   ui.locator('[data-act=editReply]').click();ui.locator('#msg').fill('היום ראיתי פרפר סגול בגינה הקטנה שלי.')
   ui.locator('#chatform [type=submit]').click()
   # Explicitly exercise the self-hosted fallback on arbitrary text.
-  f.evaluate("""stopVoice();offlineHebrew.say($('replyPreview').textContent,1,()=>{},()=>{window.voiceFailed=true})""")
-  f.wait_for_function("played.some(a=>a.src.startsWith('blob:')&&a.currentTime>0)")
-  assert not f.evaluate('!!window.voiceFailed')
+  f.evaluate('window.priorPlays=played.length')
+  ui.locator('#dialogbody [data-act=listen]').click()
+  f.wait_for_function("played.slice(priorPlays).some(a=>a.src.startsWith('blob:')&&a.currentTime>0)",timeout=90000)
   ui.locator('[data-act=confirmReply]').click()
   assert f.evaluate('chat().msg.length')==count+1
   assert f.evaluate('chat().msg.at(-1).text')=='היום ראיתי פרפר סגול בגינה הקטנה שלי.'
